@@ -1,0 +1,82 @@
+*{
+    text-align: center;
+    background-color: beige;
+    margin: 0;
+    padding: 0;
+
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px;
+}
+
+#container{
+    display: grid;
+    align-self: center;
+    background-color: #333;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    grid-template-columns: repeat(4,100px);
+    grid-template-areas:
+        "display display display display"
+        "clear sign percent divide"
+        "seven eight nine multiply"
+        "four five six subtract"
+        "one two three add"
+        "zero zero dot equals"
+        ;
+    border: 2px solid black;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    width:400px;
+    margin: 10px;
+    padding: 10px;
+    
+}
+
+#display{
+    display: flex;
+    justify-content: right;
+    height: 50px;
+    padding: 30px;
+    color: #0f0;
+    grid-area: display;
+    font-size: 2em;
+    background-color:#1c1c1c;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+button{
+    background-color: #444;
+    border: 1px solid #555;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    color: azure;
+    font-size: 1.2em;
+    height:70px;
+    width: auto;
+    border-radius: 5px;
+    margin: 6px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+button:hover{
+    background-color: #555
+}
+
+button.operator{
+    background-color:#666 ;
+}
+
+button.equals{
+    background-color: #008080;
+    color: white;
+}
+.zero{
+    grid-column: span 2;
+}
+
