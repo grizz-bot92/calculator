@@ -8,7 +8,6 @@ let display = document.querySelector('#display');
 let allClearButton = document.querySelector('#allClear');
 let clearBtn = document.querySelector('#clear');
 let equalBtn = document.querySelector('#equals');
-let percentBtn = document.querySelector('#percent');
 
 function add(a, b){
     return a + b;
@@ -26,22 +25,30 @@ function divide(a, b){
     return a / b;
 };
 
+function percentage(a, b){
+    return b * a / 100;
+}
+
+console.log(percentage(10,100));
+
 function operate(num1, operation, num2){
-    if(operator == '+'){
+    if(operation == '+'){
         return add(num1, num2);
     } else if(operation == '-'){
         return subtract(num1, num2);
     } else if(operation == '*'){
         return multiply(num1, num2);
+    }else if(operation == '%'){
+        return percentage(num1, num2)
     } else if(operation == '/'){
         if(num2 == 0){
             display.textContent = 'ERROR';
         }
         return divide(num1, num2)
-    }
+    } 
 };
+console.log(operate())
 
-// let result = operate(firstOperand, operator, secondOperand);
 
 btn.forEach(button =>{
     button.addEventListener('click', () => {
@@ -53,7 +60,7 @@ btn.forEach(button =>{
             } else {
                 display.textContent += value;
             }    
-        } else if(value === '+' || value === '-' || value === '/' || value === '*'){
+        } else if(value === '+' || value === '-' || value === '/' || value === '*' || value == '%'){
             if (firstOperand === null){
                 firstOperand = parseFloat(display.textContent);
             } 
@@ -61,10 +68,9 @@ btn.forEach(button =>{
             resetDisplay = true;
         } 
     });
-        
-        
-        
+              
 });
+
 
 function calculate(){
     if(firstOperand !== null && operator !== null){
@@ -93,14 +99,9 @@ allClearButton.addEventListener('click', () =>{
 clearBtn.addEventListener('click', () =>{
     if(!firstOperand){
         display.textContent = '0';
-    }else{
+    } else{
         secondOperand = null;
         operator = null;
         display.textContent = firstOperand;
     }  
 })
-
-percentBtn.addEventListener('click', () =>{
-    secondOperand * firstOperand/100;
-})
-
