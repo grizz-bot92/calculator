@@ -1,13 +1,14 @@
 *{
     text-align: center;
-    background-color: beige;
     margin: 0;
     padding: 0;
 
 }
 
 body{
+    background-color: beige;
     display: flex;
+    overflow: hidden;
     justify-content: center;
     align-items: center;
     margin: 40px;
@@ -15,6 +16,7 @@ body{
 
 #container{
     display: grid;
+    overflow: hidden;
     align-self: center;
     background-color: #333;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -38,18 +40,24 @@ body{
     
 }
 
-#display{
+.display{
     display: flex;
     justify-content: right;
+    align-items: end;
+    flex-direction: column;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:clip;
     height: 50px;
     padding: 30px;
     color: #0f0;
     grid-area: display;
-    font-size: 2em;
+    font-size: 3em;
     background-color:#1c1c1c;
     border-radius: 10px;
     margin-bottom: 10px;
 }
+
 button{
     background-color: #444;
     border: 1px solid #555;

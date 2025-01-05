@@ -2,12 +2,12 @@ let firstOperand = null;
 let operator = null;
 let secondOperand = null;
 let resetDisplay = false;
+let dotBtnClicked = 0;
+let operatorCount = 0;
 
 let btn = document.querySelectorAll('button');
-let display = document.querySelector('#display');
-let allClearButton = document.querySelector('#allClear');
-let clearBtn = document.querySelector('#clear');
-let equalBtn = document.querySelector('#equals');
+let display = document.querySelector('.display');
+let dotBtn = document.querySelector('#dot');
 
 function add(a, b){
     return a + b;
@@ -29,7 +29,6 @@ function percentage(a, b){
     return b * a / 100;
 }
 
-console.log(percentage(10,100));
 
 function operate(num1, operation, num2){
     if(operation == '+'){
@@ -47,32 +46,43 @@ function operate(num1, operation, num2){
         return divide(num1, num2)
     } 
 };
-console.log(operate())
-
 
 btn.forEach(button =>{
     button.addEventListener('click', () => {
-        const value = button.textContent;
+        let value = button.textContent;
         if(!isNaN(value) || value === '.'){
             if (display.textContent == '0' || resetDisplay){
                 display.textContent = value;
                 resetDisplay = false;
             } else {
                 display.textContent += value;
-            }    
-        } else if(value === '+' || value === '-' || value === '/' || value === '*' || value == '%'){
+            } 
+        } else if(value === '+' || value === '-' || value === '/' || value === '*' || value === '%'){
+            operatorCount ++;
             if (firstOperand === null){
                 firstOperand = parseFloat(display.textContent);
-            } 
+            } else if(firstOperand !== null && operatorCount > 1){
+                operator = value;
+            } else if(operator){
+                calculate();
+            }
+
+            dotBtn.disabled = false;
             operator = value;
             resetDisplay = true;
+
+        } else if(value === '='){
+            equals();
+        } else if(value === 'AC'){
+            allClear();
+        } else if(value === 'C'){
+            clear();
         } 
     });
-              
+               
 });
 
-
-function calculate(){
+function equals(){
     if(firstOperand !== null && operator !== null){
         secondOperand = parseFloat(display.textContent);
         let result = operate(firstOperand, operator, secondOperand);
@@ -81,27 +91,46 @@ function calculate(){
         operator = null;
         firstOperand = null;
         secondOperand = null;
-        resetDisplay = true;
+        resetDisplay = true;       
     } 
-};    
+};  
 
-equalBtn.addEventListener('click', calculate);
-
-allClearButton.addEventListener('click', () =>{
+function allClear(){
     display.textContent = '0';
     firstOperand = null;
     secondOperand = null;
     operator = null;
     resetDisplay = false;
-});
+    dotBtn.disabled = false;
+};
 
-
-clearBtn.addEventListener('click', () =>{
+function clear(){
     if(!firstOperand){
         display.textContent = '0';
     } else{
         secondOperand = null;
         operator = null;
         display.textContent = firstOperand;
-    }  
-})
+    } 
+    dotBtn.disabled = false;
+}
+
+dotBtn.addEventListener('click', () => {
+    if(!firstOperand && dotBtn){
+        dotBtn.disabled = true;
+    };
+
+    dotBtnClicked++;
+
+    if (dotBtnClicked >= 2){
+        dotBtn.disabled = true;
+    };
+});
+
+const calculate = () =>{
+    secondOperand= parseFloat(display.textContent);
+    firstOperand = operate(firstOperand, operator, secondOperand);
+    display.textContent = firstOperand;
+    operator = null;
+}
+
